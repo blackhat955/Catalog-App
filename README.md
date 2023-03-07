@@ -1,4 +1,4 @@
-# flutter_learning_1
+# Catalog App
 
 A new Flutter project.
 

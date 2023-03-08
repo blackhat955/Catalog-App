@@ -58,7 +58,24 @@ you can wrap Inkwell class with material class and problem solve but if you obse
 now you can remove decoration you given to AnimatedContainer and give to the material and you see now the issue is resolve.
 
 give decoration to the material only do not give it to AnimatedContainer
-<=================================================day 8=================================================>
+<=================================================day 9=================================================>
+
+postion set by parents and child should follow it .
+ like if we have two container
+ container 1
+ container 2
+ and if you set position for container 1 which is parents of container 2
+ then it will take parent height and width default even we define a different
+ height and with for it.
+
+
+ Widget are immutable like container.
+
+ Basically in flutter we have tree main component on which work.
+ 1.Widget tree --- writing for this (code)
+ 2.Element Tree
+ 3.Render tree ---painting on canva or on screen
+
 
 
 

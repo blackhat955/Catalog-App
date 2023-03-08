@@ -6,8 +6,8 @@ class MyDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final imgUrl =
-        "https://media.licdn.com/dms/image/D4D03AQHaN6SHTIxRvg/profile-displayphoto-shrink_800_800/0/1675025697909?e=2147483647&v=beta&t=ZJqIofWv3aj84BdI2METaANwnFv67_Ld5mUs1uNMhuc";
+    // final imgUrl =
+    //     "https://media.licdn.com/dms/image/D4D03AQHaN6SHTIxRvg/profile-displayphoto-shrink_800_800/0/1675025697909?e=2147483647&v=beta&t=ZJqIofWv3aj84BdI2METaANwnFv67_Ld5mUs1uNMhuc";
     return Drawer(
       child: Container(
         color: Colors.deepPurple,
@@ -21,11 +21,11 @@ class MyDrawer extends StatelessWidget {
                 accountEmail: Text("earthh@gmail.com"),
                 accountName: Text("Durgesh Tiwari"),
                 currentAccountPicture: CircleAvatar(
-                  backgroundImage: NetworkImage(imgUrl),
-                ),
+                    // backgroundImage: NetworkImage(imgUrl),
+                    ),
               ),
             ),
-            ListTile(
+            const ListTile(
               leading: Icon(
                 CupertinoIcons.home,
                 color: Colors.white,
@@ -36,7 +36,7 @@ class MyDrawer extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
               ),
             ),
-            ListTile(
+            const ListTile(
               leading: Icon(
                 CupertinoIcons.profile_circled,
                 color: Colors.white,
@@ -47,7 +47,7 @@ class MyDrawer extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
               ),
             ),
-            ListTile(
+            const ListTile(
               leading: Icon(
                 CupertinoIcons.mail,
                 color: Colors.white,

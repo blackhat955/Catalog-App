@@ -1,5 +1,7 @@
 class CatalogModel {
-  static final items = [
+  // constructor initialize 1
+  static List<Item> items = [
+    // by making field final you are not able make changes and here you adding more list item so have to make this not a  final
     Item(
         id: 1,
         name: "iPhone 12 Pro",
@@ -20,10 +22,34 @@ class Item {
   final String image;
 
   Item(
+      // constructor 1
       {required this.id,
       required this.name,
       required this.desc,
       required this.price,
       required this.color,
       required this.image});
+
+  // to get the data from the json we make sure that here must be constructor and you initilize it
+  // here we do dynamic because variable you have are not same in the json some of the string some of int and some are other so you have to assing it as json
+  // factory is type of constructor which is initialize the value with something so can't get error
+  factory Item.fromMap(Map<String, dynamic> map) {
+    return Item(
+      id: map["id"],
+      name: map["name"],
+      desc: map["desc"],
+      price: map["price"],
+      color: map["color"],
+      image: map["image"],
+    );
+
+    // toMap()=>{ // to encoding process
+    //   "id":id,
+    //   "name":name,
+    //   "desc":desc,
+    //   "price":price,
+    //   "color":color,
+    //   "image":image,
+    // };
+  }
 }

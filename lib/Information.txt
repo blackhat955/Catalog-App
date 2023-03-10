@@ -1,83 +1,31 @@
+                                          Today Learning:
+ Json local Loading and extracting.
 
-video link:  https://www.youtube.com/watch?v=j-LOab_PzzU
+ If you use json file which is local to the other file means data
+ is not come from a API source than in this case we use "root service" library
+service.dart package
 
-Type of data type :
-DAY 1=============================================>
-1: bool
-2: var_ this variable is responsible for the accept all type of data type which can be use
-3: string - this is another data type which can be use to contain or return string values
-4:double- this variable type is responsible for holding double values
-5: num - this data type basically hold all type of number whether it is a integer or double value
-6: int - data type is use to store the  integer value
+And for encoding use dart-decode for for convert string output to
+again as JSON data for the further use
 
-# important to note :
-
-(Constructor)==> is used to pass the data to the app
-
-Varibale type const and final . if you have a list which is final type than ypu can able the
-add more element but if you have a list is type than you won't able to add more element.
+note  :
+hot reload only call the build method where hot restart only call the initState method and build method together.
 
 
-what is scaffold?
-this is serve as header, body and footer in HTML you can take refrence from there
+factory is type of constructor which is automatically initialize the variables ==> category.dart
+- to see the change you have to call the setState method
 
-
-===> for bold cursor you can press numlk key+ 0 in the keyboard together.
-
-
-Day 2===============================================================>
-
-# Scaffold is main structure of the app means main item where we can draw
-Widget build(BuildContext context) ==> this mean we are return a widget basically Widget is a return type
-here Widget is return type and build is a function
-if we write int in place of widget than it return widget which is type int similarly for string and void .
-
-Another important thing ==> Widget build({BuildContext context}) if we use curly braces inside the function bulid that means we can pass parameter but the are compulsory but if there is not any braces than it will must compulsory
-
-stateless amd stateful widget ====>>
-
-for example if you are on the login screen and you want some cahnges on that screen without changing the page
-then we should think about the stateful widget because this is souly responsible for the changes.
-mean it act like something is alive.
-for the stateless after done a task we can move on teh new screen which is a new page and yu nothing worrey about it.
-
-
-note a new important thing ::
-to make thing private in dart _ just used underscore to do this like _LoginPage here the login page is now private.
-
-
-<=================================================day 6=====================================================>
-
-to apply ripple effect with inkwell we have to a very important thing.
-
-To solve this issue you can use Ink class instead of container class and they work same and it
-also work well with Inkwell class.
-
-other soloution:
-you can wrap Inkwell class with material class and problem solve but if you observe then you find the issue still be the same
-now you can remove decoration you given to AnimatedContainer and give to the material and you see now the issue is resolve.
-
-give decoration to the material only do not give it to AnimatedContainer
-<=================================================day 9=================================================>
-
-postion set by parents and child should follow it .
- like if we have two container
- container 1
- container 2
- and if you set position for container 1 which is parents of container 2
- then it will take parent height and width default even we define a different
- height and with for it.
-
-
- Widget are immutable like container.
-
- Basically in flutter we have tree main component on which work.
- 1.Widget tree --- writing for this (code)
- 2.Element Tree
- 3.Render tree ---painting on canva or on screen
-
-
-
+// use dart data class generator to generate value like this:
+factory Item.fromMap(Map<String, dynamic> map) {
+    return Item(
+      id: map["id"],
+      name: map["name"],
+      desc: map["desc"],
+      price: map["price"],
+      color: map["color"],
+      image: map["image"],
+    );
+based on the class property because sometime class are too large and you can't do it that easy.
 
 
 

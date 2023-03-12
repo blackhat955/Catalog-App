@@ -3,9 +3,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_learning_1/models/catalog.dart';
+import 'package:flutter_learning_1/widget/home_widget/catalogHeader.dart';
+// import 'package:flutter_learning_1/pages/home_widget/catalogList.dart';
 import 'package:flutter_learning_1/widget/theme.dart';
 // import 'package:flutter_learning_1/widget/drawer.dart';
 import 'package:velocity_x/velocity_x.dart';
+
+import '../widget/home_widget/catalogList.dart';
 
 // you can't do your operation in a stateless widget if you want to change the state you have to have a stateful widget
 class Home extends StatefulWidget {
@@ -66,109 +70,6 @@ class _HomeState extends State<Home> {
             ),
           ),
         ));
-  }
-}
-
-class CatalogHeader extends StatelessWidget {
-  const CatalogHeader({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        "Catalog App".text.xl5.bold.color(Mytheme.darkbluishColor).make(),
-        "Trading Products".text.xl2.make()
-      ],
-    );
-  }
-}
-
-class CatalogList extends StatelessWidget {
-  const CatalogList({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true, // give your list to enough space to fit in
-      itemCount: CatalogModel.items.length,
-      itemBuilder: (context, index) {
-        final catalog = CatalogModel.items[index];
-        return CatalogItem(catalog: catalog);
-      },
-    );
-  }
-}
-
-class CatalogItem extends StatelessWidget {
-  final Item catalog;
-
-  const CatalogItem({Key? key, required this.catalog})
-      : assert(catalog != null),
-        super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return VxBox(
-        child: Row(
-      children: [
-        CatalogImage(
-          image: catalog.image,
-        ),
-        Expanded(
-            child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            catalog.name.text.lg.color(Mytheme.darkbluishColor).bold.make(),
-            catalog.desc.text.textStyle(context.captionStyle).make(),
-            10.heightBox,
-            ButtonBar(
-              alignment: MainAxisAlignment.spaceBetween,
-              buttonPadding: EdgeInsets.zero,
-              children: [
-                "\$${catalog.price}"
-                    .text
-                    .color(Mytheme.darkbluishColor)
-                    .xl
-                    .make(),
-                ElevatedButton(
-                  // Using Button Style you can change color very easily
-                  style: ButtonStyle(
-                    backgroundColor:
-                        //MaterialStateProperty this helps you set the color despite whether button is pressed oer not
-                        MaterialStateProperty.all(Mytheme.darkbluishColor),
-                    shape: MaterialStateProperty.all(
-                      StadiumBorder(),
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: "Buy".text.make(),
-                )
-              ],
-            ).pOnly(right: 8)
-          ],
-        ))
-      ],
-    )).white.rounded.square(150).make().py16();
-  }
-}
-
-class CatalogImage extends StatelessWidget {
-  final String image;
-
-  const CatalogImage({Key? key, required this.image}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Image.network(image)
-        .box
-        .color(Mytheme.creamColor)
-        .p16
-        .color(Mytheme.creamColor)
-        .make()
-        .p16()
-        .w40(context);
   }
 }
 

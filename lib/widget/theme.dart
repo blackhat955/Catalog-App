@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // You can create multiple theme like below and you can import as much you could in the app you are building
 class Mytheme {
   static ThemeData lightTheme(BuildContext context) => ThemeData(
         // themeMode work basis of theme
         primarySwatch: Colors.deepPurple,
+        textTheme: GoogleFonts.latoTextTheme(),
         // here you can also give google font family,
         appBarTheme: AppBarTheme(
             elevation: 0.0,

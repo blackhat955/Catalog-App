@@ -2,5 +2,7 @@
 
 class MyRoutes {
   static String loginRoutes = "/login";
-  static String homeRoutes = "/home"; // static variable are variable which can take memory at one time and could not be multiple time
+  static String homeRoutes =
+      "/home"; // static variable are variable which can take memory at one time and could not be multiple time
+  static String homeDetailRoutes = "details";
 }

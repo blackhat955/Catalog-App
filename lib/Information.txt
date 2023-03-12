@@ -8,3 +8,5 @@ axis item is column and you can do operation on it
 this is use to make things looks rounded and feel good
 
 grid delegate is use for to fix how many items you prefer to show in a row.
+
+Vx package is quite good interms of design new UI ans it very useful you have to learn that

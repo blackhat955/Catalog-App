@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_learning_1/models/catalog.dart';
-import 'package:flutter_learning_1/widget/drawer.dart';
+import 'package:flutter_learning_1/widget/theme.dart';
+// import 'package:flutter_learning_1/widget/drawer.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 // you can't do your operation in a stateless widget if you want to change the state you have to have a stateful widget
 class Home extends StatefulWidget {
@@ -39,64 +41,134 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    // here you declare a varibale which helps you to menupulate things based on it
+    // here you declare a variable which helps you to manipulate things based on it
     final dummylist = List.generate(
         100,
         (index) => CatalogModel
             .items[0]); // this way you can generate a list of item for List
     return Scaffold(
-      resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        title: Text('Catalog App'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: (CatalogModel.items != null && CatalogModel.items.isNotEmpty)
-            ? GridView.builder(
-                // Sliver is main thing behind things scrollable
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 16), // number of item in a row
-                itemBuilder: (context, index) {
-                  final item = CatalogModel.items[index];
-                  return Card(
-                    clipBehavior: Clip.antiAlias,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    child: GridTile(
-                      header: Container(
-                        child: Text(
-                          item.name,
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        padding: EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: Colors.deepPurple,
-                        ),
-                      ),
-                      child: Image.network(item.image),
-                      footer: Container(
-                        child: Text(
-                          item.price.toString(),
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        padding: EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  );
-                },
-                itemCount: CatalogModel.items.length,
-              )
-            : const Center(
-                child: CircularProgressIndicator(),
-              ),
-      ),
-      drawer: MyDrawer(),
+        // resizeToAvoidBottomInset: true,
+        backgroundColor: Mytheme.creamColor,
+        body: SafeArea(
+          child: Container(
+            padding: Vx.m32,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CatalogHeader(),
+                if (CatalogModel.items != null && CatalogModel.items.isNotEmpty)
+                  CatalogList().expand()
+                else
+                  Center(
+                    child: CircularProgressIndicator(),
+                  )
+              ],
+            ),
+          ),
+        ));
+  }
+}
+
+class CatalogHeader extends StatelessWidget {
+  const CatalogHeader({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        "Catalog App".text.xl5.bold.color(Mytheme.darkbluishColor).make(),
+        "Trading Products".text.xl2.make()
+      ],
     );
+  }
+}
+
+class CatalogList extends StatelessWidget {
+  const CatalogList({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: true, // give your list to enough space to fit in
+      itemCount: CatalogModel.items.length,
+      itemBuilder: (context, index) {
+        final catalog = CatalogModel.items[index];
+        return CatalogItem(catalog: catalog);
+      },
+    );
+  }
+}
+
+class CatalogItem extends StatelessWidget {
+  final Item catalog;
+
+  const CatalogItem({Key? key, required this.catalog})
+      : assert(catalog != null),
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return VxBox(
+        child: Row(
+      children: [
+        CatalogImage(
+          image: catalog.image,
+        ),
+        Expanded(
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            catalog.name.text.lg.color(Mytheme.darkbluishColor).bold.make(),
+            catalog.desc.text.textStyle(context.captionStyle).make(),
+            10.heightBox,
+            ButtonBar(
+              alignment: MainAxisAlignment.spaceBetween,
+              buttonPadding: EdgeInsets.zero,
+              children: [
+                "\$${catalog.price}"
+                    .text
+                    .color(Mytheme.darkbluishColor)
+                    .xl
+                    .make(),
+                ElevatedButton(
+                  // Using Button Style you can change color very easily
+                  style: ButtonStyle(
+                    backgroundColor:
+                        //MaterialStateProperty this helps you set the color despite whether button is pressed oer not
+                        MaterialStateProperty.all(Mytheme.darkbluishColor),
+                    shape: MaterialStateProperty.all(
+                      StadiumBorder(),
+                    ),
+                  ),
+                  onPressed: () {},
+                  child: "Buy".text.make(),
+                )
+              ],
+            ).pOnly(right: 8)
+          ],
+        ))
+      ],
+    )).white.rounded.square(150).make().py16();
+  }
+}
+
+class CatalogImage extends StatelessWidget {
+  final String image;
+
+  const CatalogImage({Key? key, required this.image}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.network(image)
+        .box
+        .color(Mytheme.creamColor)
+        .p16
+        .color(Mytheme.creamColor)
+        .make()
+        .p16()
+        .w40(context);
   }
 }
 

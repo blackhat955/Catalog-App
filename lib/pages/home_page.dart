@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_learning_1/models/catalog.dart';
 import 'package:flutter_learning_1/widget/drawer.dart';
-import 'package:flutter_learning_1/widget/item_widget.dart';
 
 // you can't do your operation in a stateless widget if you want to change the state you have to have a stateful widget
 class Home extends StatefulWidget {
@@ -25,6 +24,7 @@ class _HomeState extends State<Home> {
 
   loadData() async {
     await Future.delayed(
+      // this delay is used for waiting the app for the time till data receive.
       Duration(seconds: 2),
     );
     var resultString = await rootBundle.loadString(
@@ -52,18 +52,44 @@ class _HomeState extends State<Home> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: (CatalogModel.items != null && CatalogModel.items.isNotEmpty)
-            ? ListView.builder(
-                // building list view and only render this which is present on screen
-                // itemCount: CatalogModel.items.length,
-                // data load is so fast means list may be null for few minute and if in meantime  if build method called then it throw error
-                // to make sure it not happen you have to write conditional check
-                itemCount: CatalogModel.items.length,
+            ? GridView.builder(
+                // Sliver is main thing behind things scrollable
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 16), // number of item in a row
                 itemBuilder: (context, index) {
-                  return ItemWidget(
-                    // item: CatalogModel.items[index],
-                    item: CatalogModel.items[index],
+                  final item = CatalogModel.items[index];
+                  return Card(
+                    clipBehavior: Clip.antiAlias,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    child: GridTile(
+                      header: Container(
+                        child: Text(
+                          item.name,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        padding: EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: Colors.deepPurple,
+                        ),
+                      ),
+                      child: Image.network(item.image),
+                      footer: Container(
+                        child: Text(
+                          item.price.toString(),
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        padding: EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
                   );
                 },
+                itemCount: CatalogModel.items.length,
               )
             : const Center(
                 child: CircularProgressIndicator(),
@@ -73,3 +99,19 @@ class _HomeState extends State<Home> {
     );
   }
 }
+
+// ListView.builder(
+// // building list view and only render this which is present on screen
+// // itemCount: CatalogModel.items.length,
+// // data load is so fast means list may be null for few minute and if in meantime  if build method called then it throw error
+// // to make sure it not happen you have to write conditional check
+// itemCount: CatalogModel.items.length,
+// itemBuilder: (context, index) {
+// return ItemWidget(
+// // item: CatalogModel.items[index],
+// item: CatalogModel.items[index],
+// );
+// },
+// )
+
+// in grid you each item always arrange one after other in a line but in listview items are being one after other in a stack fashion

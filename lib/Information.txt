@@ -1,31 +1,10 @@
-                                          Today Learning:
- Json local Loading and extracting.
+In this we learn about how we can replace ListView to GridView and what it is advantage and disadvantage
 
- If you use json file which is local to the other file means data
- is not come from a API source than in this case we use "root service" library
-service.dart package
+Grid View provide main axis as row where item arrange in in horizontal passion and the cross
+axis item is column and you can do operation on it
 
-And for encoding use dart-decode for for convert string output to
-again as JSON data for the further use
+//clipBehavior: Clip.antiAlias,
 
-note  :
-hot reload only call the build method where hot restart only call the initState method and build method together.
+this is use to make things looks rounded and feel good
 
-
-factory is type of constructor which is automatically initialize the variables ==> category.dart
-- to see the change you have to call the setState method
-
-// use dart data class generator to generate value like this:
-factory Item.fromMap(Map<String, dynamic> map) {
-    return Item(
-      id: map["id"],
-      name: map["name"],
-      desc: map["desc"],
-      price: map["price"],
-      color: map["color"],
-      image: map["image"],
-    );
-based on the class property because sometime class are too large and you can't do it that easy.
-
-
-
+grid delegate is use for to fix how many items you prefer to show in a row.
